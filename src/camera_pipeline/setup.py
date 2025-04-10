@@ -2,7 +2,7 @@ from setuptools import setup
 import os
 from glob import glob
 
-package_name = 'your_package'
+package_name = 'camera_pipeline'
 
 setup(
     name=package_name,
