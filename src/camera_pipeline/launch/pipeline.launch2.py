@@ -9,7 +9,10 @@ def generate_launch_description():
         package='image_proc',
         executable='rectify_node',
         name='rectify_node',
-        output='screen'
+        output='screen',
+        remappings=[
+            ('camera_info', 'image_raw')
+        ]
     )
 
     # Gaussian blur node: remap input from 'image_raw' to 'image_rect',
@@ -30,7 +33,8 @@ def generate_launch_description():
         executable='canny_edge',
         name='canny_edge',
         remappings=[
-            ('image_raw', 'image_blurred')
+            ('image_raw', 'image_blurred'),
+            ('output_image', 'final_image')
         ]
     )
 
