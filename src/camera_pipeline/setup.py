@@ -13,6 +13,8 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', glob('launch/*.launch.py')),
+        ('share/' + package_name + '/launch', glob('launch/*.launch2.py')),
+
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -24,7 +26,8 @@ setup(
     include_package_data=True,  
     entry_points={
         'console_scripts': [
-            'gaussian_blur = camera_pipeline.gaussian_blur:main'
+            'gaussian_blur = camera_pipeline.gaussian_blur:main',
+            'canny_edge = camera_pipeline.gaussian_blur:main'
         ],
     },
 )
