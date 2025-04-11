@@ -45,14 +45,20 @@ class CannyEdgeNode(Node):
             self.get_logger().error('Failed to convert image: %s' % str(e))
             return
         
-        # Bruker Canny Edge-detektering med terskelverdier 100 og 200
-        cv_edge = cv2.Canny(cv_image, 100, 200)
+        # Legger til gråtonekonvertering (Canny fungerer best på gråtonebilder)
+        gray_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
+        
+        # Bruker Canny Edge-detektering med terskelverdier 50 og 150 på gråtonebildet
+        cv_edge = cv2.Canny(gray_image, 50, 150)
+        
         # Siden Canny-detektering gir et enkeltkanals gråtonebilde, konverterer vi det til BGR-format for kompatibilitet med "bgr8"
         cv_edge_color = cv2.cvtColor(cv_edge, cv2.COLOR_GRAY2BGR)
 
         # Konverterer det prosesserte bildet tilbake til en ROS Image-melding
         try:
             edge_msg = self.bridge.cv2_to_imgmsg(cv_edge_color, "bgr8")
+            # Kopierer header fra original melding
+            edge_msg.header = msg.header
         except Exception as e:
             self.get_logger().error('Failed to convert image: %s' % str(e))
             return
