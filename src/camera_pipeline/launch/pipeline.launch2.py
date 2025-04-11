@@ -11,8 +11,12 @@ def generate_launch_description():
         name='rectify_node',
         output='screen',
         remappings=[
-            ('camera_info', 'image_raw')
-        ]
+            ('image_raw', '/image_raw'),  # or '/image' if that's what your camera now uses
+            ('camera_info', '/camera_info')
+            ],
+        parameters=[{'use_approximate_sync': True}]
+
+
     )
 
     # Gaussian blur node: remap input from 'image_raw' to 'image_rect',
